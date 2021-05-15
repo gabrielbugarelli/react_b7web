@@ -1,23 +1,25 @@
 import React, { useState } from 'react'
-import './App.css'
+import styled from 'styled-components'
 
+const Input = styled.input`
+  width:400px;
+  heigth:50px;
+  font-size: 16px;
+  padding: 10px;
+  border: 0.5;
+`
 const App = () => {
 
-  const [value, setValue] = useState(1)
+  const [texto, setTexto] = useState('')
+  //Jeito tradicional de se trabalhar com estado
+  // const handleInput = (e) => {
+  //   setTexto(e.target.value)
+  // }
 
-  const clickButton = () => {
-    setValue(
-      value + 1
-    )
-  }
-
-  return (
-    <>
-      <div>O valor atual é: {value}</div >
-
-      <button onClick={clickButton}>CLique para atualizar o valor! </button>
-    </>
-  )
+  return <>
+    <Input type="text" onChange={(e) => { setTexto(e.target.value) }} />
+    <p>Os número de caracteres é: {texto.length}</p>
+  </>
 }
 
 export default App;
