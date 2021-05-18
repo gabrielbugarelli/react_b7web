@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import Modal from './components/Modal'
 
 const App = () => {
-  const [name, setName] = useState(localStorage.getItem('name'));
-  useEffect(() => {
-    localStorage.setItem('name', name);
-  }, [name])
+
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const handleButtonClick = () => setModalVisible(true)
 
   return (
     <>
-      <input type="text" value={name} onChange={e => setName(e.target.value)} />
+      <button onClick={handleButtonClick}>Abrir Modal</button>
+      <Modal visible={modalVisible} setVisible={setModalVisible}>
+        <h1>Este aqui será o Modal</h1>
+      </Modal>
     </>
   )
 }
