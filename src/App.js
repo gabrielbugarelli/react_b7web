@@ -1,25 +1,51 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react'
+import SearchBox from './components/SearchBox'
 
-const Input = styled.input`
-  width:400px;
-  heigth:50px;
-  font-size: 16px;
-  padding: 10px;
-  border: 0.5;
-`
 const App = () => {
 
-  const [texto, setTexto] = useState('')
-  //Jeito tradicional de se trabalhar com estado
-  // const handleInput = (e) => {
-  //   setTexto(e.target.value)
-  // }
+  const [searchText, setSearchText] = useState('')
+  const [list, setList] = useState([])
 
-  return <>
-    <Input type="text" onChange={(e) => { setTexto(e.target.value) }} />
-    <p>Os número de caracteres é: {texto.length}</p>
-  </>
+  useEffect(() => {
+    setList([
+      { title: 'Comprar o bolo', done: false },
+      { title: 'Pegar o cachorro no petshop', done: false },
+      { title: 'Estudar react', done: true },
+      { title: 'Colocar ração para o dog', done: false },
+      { title: 'Fazer projeto no react', done: true },
+    ])
+  }, [])
+
+  const addAction = (newItem) => {
+    let newList = [...list, { title: newItem, done: false }]
+
+    setList(newList)
+  }
+
+  return (
+    <>
+      <h1>Lista de Tarefas</h1>
+
+      <SearchBox
+        onEnter={addAction}
+      />
+
+      <hr />
+
+      <ul>
+        {list.map((item, index) => (
+          <li key={index}>
+            {item.done &&
+              <del>{item.title}</del>
+            }
+
+            {!item.done &&
+              item.title
+            }
+          </li>))}
+      </ul>
+    </>
+  )
 }
 
 export default App;
