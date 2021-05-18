@@ -6,18 +6,26 @@ const App = () => {
   const [searchText, setSearchText] = useState('')
   const [list, setList] = useState([])
 
-  useEffect(() => {
-    setList([
-      { title: 'Comprar o bolo', done: false },
-      { title: 'Pegar o cachorro no petshop', done: false },
-      { title: 'Estudar react', done: true },
-      { title: 'Colocar ração para o dog', done: false },
-      { title: 'Fazer projeto no react', done: true },
-    ])
-  }, [])
+  // useEffect(() => {
+  //   setList([
+  //     { title: 'Comprar o bolo', done: false },
+  //     { title: 'Pegar o cachorro no petshop', done: false },
+  //     { title: 'Estudar react', done: true },
+  //     { title: 'Colocar ração para o dog', done: false },
+  //     { title: 'Fazer projeto no react', done: true },
+  //   ])
+  // }, [])
 
   const addAction = (newItem) => {
-    let newList = [...list, { title: newItem, done: false }]
+    let newList = [...list]
+    newList.push({ title: newItem, done: false })
+
+    setList(newList)
+  }
+
+  const handleToggleDone = (index) => {
+    let newList = [...list]
+    newList[index].done = !newList[index].done
 
     setList(newList)
   }
@@ -34,7 +42,7 @@ const App = () => {
 
       <ul>
         {list.map((item, index) => (
-          <li key={index}>
+          <li key={index} onClick={() => handleToggleDone(index)}>
             {item.done &&
               <del>{item.title}</del>
             }
