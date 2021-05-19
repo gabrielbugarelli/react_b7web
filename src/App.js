@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 import Home from './pages/Home'
 import Sobre from './pages/Sobre'
+import Categoria from './pages/Categoria'
 
 const App = () => {
   return (
@@ -16,13 +17,21 @@ const App = () => {
             <li>
               <Link to="/sobre">Sobre</Link>
             </li>
+            <li>
+              <Link to="/categoria?tipo=noticia">Notícias</Link>
+            </li>
+            <li>
+              <Link to="/categoria?tipo=viagem">Viagens</Link>
+            </li>
           </ul>
         </nav>
       </header>
 
       <Switch>
         <Route exact path="/"><Home /></Route>
-        <Route path="/sobre"><Sobre /></Route>
+        <Route exact path="/sobre"><Sobre /></Route>
+        <Route path="/categoria/"><Categoria /></Route>
+
       </Switch>
 
       <hr />
