@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom'
 import Home from './pages/Home'
 import Sobre from './pages/Sobre'
 import Categoria from './pages/Categoria'
@@ -17,6 +17,11 @@ const App = () => {
             <li>
               <Link to="/sobre">Sobre</Link>
             </li>
+
+            <li>
+              <Link to="/sobre">Quem somos</Link>
+            </li>
+
             <li>
               <Link to="/categoria?tipo=noticia">Notícias</Link>
             </li>
@@ -30,8 +35,13 @@ const App = () => {
       <Switch>
         <Route exact path="/"><Home /></Route>
         <Route exact path="/sobre"><Sobre /></Route>
+        <Route exact path="quem-somos">
+          <Redirect to="/sobre" />
+        </Route>
         <Route path="/categoria/"><Categoria /></Route>
-
+        <Route path="*">
+          <h1>Página não encontrada :(</h1>
+        </Route>
       </Switch>
 
       <hr />
