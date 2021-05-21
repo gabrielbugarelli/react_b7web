@@ -1,10 +1,15 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
-const Home = (props) => {
+const Home = () => {
 
-    let history = useHistory()
+    let history = useHistory();
+    const dispatch = useDispatch();
+
+    const name = useSelector(state => state.usuario.name);
+    const contador = useSelector(state => state.usuario.contador);
+
     const handleButton = () => {
         setTimeout(() => {
             history.replace('/sobre')
@@ -12,19 +17,25 @@ const Home = (props) => {
     }
 
     const handleBonieky = () => {
-        props.setName('Bonieky')
+        dispatch({
+            type: 'SET_NAME',
+            payload: { name: 'Bonieky' }
+        })
     }
 
     const handleIncrement = () => {
-        props.increment()
+        dispatch({
+            type: 'INCREMENT_CONTADOR'
+        })
     }
 
     return (
         <div>
             <h4>PÁGINA HOME</h4>
 
-            NOME: {props.name} <br />
-            CONTAGEM: {props.contador}
+            NOME: {name}
+            <br /><br />
+            CONTAGEM: {contador}
 
             <button onClick={handleBonieky}>Setar nome para Bonieky</button>
             <button onClick={handleIncrement}>+1</button>
@@ -37,24 +48,4 @@ const Home = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        name: state.usuario.name,
-        contator: state.usuario.contador
-    }
-}
-
-const mapDistatchToProps = (dispatch) => {
-    return {
-        setName: (newName) => dispatch({
-            type: 'SET_NAME',
-            payload: { name: newName }
-        }),
-
-        increment: () => dispatch({
-            type: 'INCREMENT_CONTADOR'
-        })
-    }
-}
-
-export default connect(mapStateToProps, mapDistatchToProps)(Home);
+export default Home;
